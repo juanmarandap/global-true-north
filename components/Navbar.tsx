@@ -11,6 +11,7 @@ const links = [
   { label: "Inicio",         href: "/"               },
   { label: "Events",         href: "/events"         },
   { label: "Silicon Valley", href: "/silicon-valley" },
+  { label: "Speakers",       href: "/speakers"       },
   { label: "Blog",           href: "/blog"           },
   { label: "Acerca de",      href: "/acerca-de"      },
 ];
@@ -81,13 +82,6 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
-          <Link href="/acerca-de"
-            className="px-5 py-2 rounded-md text-sm font-bold bg-[#2563eb] text-white hover:bg-[#1e40af] transition-colors shadow-sm"
-            style={{ fontFamily: "var(--font-montserrat)" }}>
-            Contáctanos
-          </Link>
-        </div>
 
         <button className="lg:hidden text-[#334155] p-2" onClick={() => setOpen(!open)} aria-label="Menú">
           {open ? <X size={22} /> : <Menu size={22} />}
@@ -105,10 +99,6 @@ export default function Navbar() {
                   {l.label}
                 </Link>
               ))}
-              <Link href="/acerca-de" onClick={() => setOpen(false)}
-                className="mt-1 px-5 py-2.5 rounded-md text-sm font-bold bg-[#2563eb] text-white text-center hover:bg-[#1e40af] transition-colors">
-                Contáctanos
-              </Link>
             </nav>
           </motion.div>
         )}

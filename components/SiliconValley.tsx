@@ -377,14 +377,6 @@ export default function SiliconValley() {
           </div>
         </div>
 
-        {/* Testimonial */}
-        <motion.div custom={18} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-          className="bg-white rounded-2xl p-10 text-center max-w-2xl mx-auto border border-[#e2e8f0] shadow-sm">
-          <div className="text-4xl text-[#7c3aed]/20 font-serif leading-none mb-3">&ldquo;</div>
-          <p className="text-[#1e293b] text-lg font-semibold leading-relaxed">
-            Aprendí más en este viaje que en años de universidad.
-          </p>
-        </motion.div>
       </div>
     </section>
   );

@@ -82,13 +82,27 @@ export default function HomeIntro() {
 
       {/* ── 2. STATS reales del sitio GTN ── */}
       <section ref={refC} className="relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #0f1f6e 0%, #2d1b8e 45%, #4c1d95 100%)" }}>
-        <div className="absolute -left-40 -bottom-40 w-[520px] h-[520px] opacity-[0.06] pointer-events-none select-none">
-          <Image src="/images/gtn-circle2.png" alt="" fill className="object-contain spin-slow" />
-        </div>
+        style={{ background: "linear-gradient(135deg, #f5f0ff 0%, #ede9fe 55%, #faf5ff 100%)" }}>
+
+        {/* Fade top */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white to-transparent z-10" />
+        {/* Fade bottom */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#f8fafc] to-transparent z-10" />
+
+        {/* Orbs */}
+        <motion.div
+          animate={{ scale: [1, 1.25, 1], opacity: [0.2, 0.38, 0.2] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none absolute right-0 top-0 h-[440px] w-[440px] -translate-y-1/4 translate-x-1/4 rounded-full bg-[#a78bfa]/25 blur-3xl"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.22, 0.12] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          className="pointer-events-none absolute left-0 bottom-0 h-[340px] w-[340px] translate-y-1/3 -translate-x-1/4 rounded-full bg-[#c4b5fd]/20 blur-3xl"
+        />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-20">
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+          <div className="grid grid-cols-1 sm:grid-cols-3">
             {stats.map((s, i) => (
               <motion.div
                 key={s.value}
@@ -96,11 +110,11 @@ export default function HomeIntro() {
                 transition={{ duration: 0.65, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="text-center py-10 sm:py-0 px-6"
               >
-                <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-3"
+                <p className="text-4xl sm:text-5xl font-bold text-[#4c1d95] tracking-tight mb-3"
                   style={{ fontFamily: "var(--font-montserrat)" }}>
                   {s.value}
                 </p>
-                <p className="text-white/50 text-sm uppercase tracking-widest whitespace-pre-line leading-relaxed">
+                <p className="text-[#64748b] text-sm uppercase tracking-widest whitespace-pre-line leading-relaxed">
                   {s.label}
                 </p>
               </motion.div>

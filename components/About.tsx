@@ -2,96 +2,221 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import { fadeUp } from "@/lib/animations";
 
 const team = [
-  { name: "Lucila Padilla", role: "CEO & Founder" },
-  { name: "Lucila Laborde Padilla", role: "Community manager" },
-  { name: "Krytzia Dabdoub", role: "Co-founder Silicon Valley Experience" },
+  { name: "Lucila Padilla", role: "CEO & Founder", photo: "/images/team/lucila-padilla.jpg" },
+  { name: "Lucila Laborde Padilla", role: "Community Manager", photo: "/images/team/lucila-laborde.jpg" },
+  { name: "Krytzia Dabdoub", role: "Co-founder Silicon Valley Experience", photo: "/images/team/krytzia.jpg" },
 ];
 
-export default function About() {
+function useSection() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  return { ref, inView };
+}
+
+export default function About() {
+  const refHero   = useSection();
+  const refMision = useSection();
+  const refExp    = useSection();
+  const refComp   = useSection();
+  const refTeam   = useSection();
 
   return (
-    <section id="acerca-de" ref={ref} className="relative py-20 lg:py-28 bg-[#f8fafc]">
+    <section id="acerca-de" className="relative bg-[#f8fafc] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#f59e0b]/40 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-16">
-        {/* Intro */}
-        <div className="max-w-3xl">
-          <motion.p custom={0} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-            className="text-[#7c3aed] text-xs font-bold tracking-[0.2em] uppercase mb-3"
-            style={{ fontFamily: "var(--font-montserrat)" }}>
-            Acerca de
-          </motion.p>
-          <motion.h2 custom={1} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-            className="text-3xl sm:text-4xl font-bold text-[#1e293b] leading-tight mb-5"
-            style={{ fontFamily: "var(--font-montserrat)" }}>
-            Global True North
-          </motion.h2>
-          <motion.p custom={2} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-            className="text-[#64748b] text-base leading-relaxed mb-3">
-            Un espacio global dedicado al intercambio de ideas y experiencias entre líderes, emprendedores, empresarios y creadores que promueven la integración y el desarrollo a través de la innovación, la cultura y las artes.
-          </motion.p>
-          <motion.p custom={3} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-            className="text-[#64748b] text-base leading-relaxed">
-            Fundada en 2015 por <span className="text-[#1e293b] font-semibold">Lucila Padilla Padilla</span>, una emprendedora y líder comprometida con la creación de un mundo mejor y más equitativo.
-          </motion.p>
-        </div>
+      {/* ── INTRO ── */}
+      <div
+        ref={refHero.ref}
+        className="relative overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #f5f0ff 0%, #ede9fe 55%, #faf5ff 100%)" }}
+      >
+        {/* Fades de transición */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#f8fafc] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f8fafc] to-transparent z-10" />
+        {/* Orb morado */}
+        <motion.div
+          animate={{ scale: [1, 1.25, 1], opacity: [0.2, 0.38, 0.2] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none absolute right-0 top-0 h-[520px] w-[520px] -translate-y-1/4 translate-x-1/4 rounded-full bg-[#a78bfa]/25 blur-3xl"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.22, 0.12] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          className="pointer-events-none absolute left-0 bottom-0 h-[380px] w-[380px] translate-y-1/3 -translate-x-1/4 rounded-full bg-[#c4b5fd]/20 blur-3xl"
+        />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-24 lg:pt-32 pb-16">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }} animate={refHero.inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-[#7c3aed] text-xs font-bold tracking-[0.2em] uppercase mb-4"
+          style={{ fontFamily: "var(--font-montserrat)" }}>
+          Acerca de nosotros
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }} animate={refHero.inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="text-4xl sm:text-5xl font-bold text-[#1e293b] leading-tight mb-6 max-w-2xl"
+          style={{ fontFamily: "var(--font-montserrat)" }}>
+          Global True North
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }} animate={refHero.inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.18 }}
+          className="text-[#64748b] text-lg leading-relaxed max-w-2xl mb-2">
+          Un espacio global dedicado al intercambio de ideas y experiencias entre líderes, emprendedores, empresarios y creadores que promueven la integración y el desarrollo a través de la innovación, la cultura y las artes.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }} animate={refHero.inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.26 }}
+          className="text-[#64748b] text-base leading-relaxed max-w-2xl">
+          Fundada en 2015 por <span className="text-[#1e293b] font-semibold">Lucila Padilla</span>, una emprendedora y líder comprometida con la creación de un mundo mejor y más equitativo.
+        </motion.p>
+      </div>
+      </div>
 
-        {/* Misión + Experiencias */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <motion.div custom={4} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-            className="bg-white rounded-2xl p-7 border border-[#e2e8f0] shadow-sm">
-            <div className="w-8 h-1 bg-[#2563eb] rounded mb-4" />
-            <h3 className="text-[#1e293b] font-bold text-lg mb-3" style={{ fontFamily: "var(--font-montserrat)" }}>Misión</h3>
-            <p className="text-[#64748b] text-sm leading-relaxed">
+      {/* ── MISIÓN — texto izq | imagen der ── */}
+      <div ref={refMision.ref} className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* Texto */}
+          <motion.div
+            initial={{ opacity: 0, x: -60 }} animate={refMision.inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+            <div className="w-10 h-1 bg-[#2563eb] rounded mb-6" />
+            <h3 className="text-3xl font-bold text-[#1e293b] mb-5" style={{ fontFamily: "var(--font-montserrat)" }}>
+              Misión
+            </h3>
+            <p className="text-[#64748b] text-base leading-relaxed">
               Capacitar e inspirar a personas de todos los ámbitos de la vida para que alcancen su máximo potencial. Desde nuestra sede en México, impulsamos programas e iniciativas que fomentan la inclusión en diversos sectores, creando un impacto positivo y duradero en nuestras comunidades.
             </p>
           </motion.div>
-          <motion.div custom={5} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-            className="bg-white rounded-2xl p-7 border border-[#e2e8f0] shadow-sm">
-            <div className="w-8 h-1 bg-[#d946ef] rounded mb-4" />
-            <h3 className="text-[#1e293b] font-bold text-lg mb-3" style={{ fontFamily: "var(--font-montserrat)" }}>Experiencias y conexiones</h3>
-            <p className="text-[#64748b] text-sm leading-relaxed mb-3">
+
+          {/* Imagen */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }} animate={refMision.inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
+            className="relative h-[420px] lg:h-[480px] rounded-3xl overflow-hidden shadow-xl">
+            <Image src="/images/about/about-1.jpg" alt="Global True North World Forum" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f2e]/30 to-transparent" />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ── EXPERIENCIAS — imagen izq | texto der ── */}
+      <div ref={refExp.ref} className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* Imagen */}
+          <motion.div
+            initial={{ opacity: 0, x: -60 }} animate={refExp.inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
+            className="relative h-[420px] lg:h-[480px] rounded-3xl overflow-hidden shadow-xl order-2 lg:order-1">
+            <Image src="/images/about/about-2.jpg" alt="Ponente en evento GTN" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f2e]/30 to-transparent" />
+          </motion.div>
+
+          {/* Texto */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }} animate={refExp.inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className="order-1 lg:order-2">
+            <div className="w-10 h-1 bg-[#d946ef] rounded mb-6" />
+            <h3 className="text-3xl font-bold text-[#1e293b] mb-5" style={{ fontFamily: "var(--font-montserrat)" }}>
+              Experiencias y conexiones
+            </h3>
+            <p className="text-[#64748b] text-base leading-relaxed mb-4">
               En Global True North, no solo organizamos eventos, creamos experiencias que inspiran. Somos expertos en la gestión de eventos, encargándonos de la logística y el ecosistema necesario para que cada encuentro sea un éxito.
             </p>
-            <p className="text-[#64748b] text-sm leading-relaxed">
+            <p className="text-[#64748b] text-base leading-relaxed">
               Nuestra experiencia y dedicación nos permiten ofrecer oportunidades donde las ideas florecen y las conexiones se fortalecen.
             </p>
           </motion.div>
         </div>
+      </div>
 
-        {/* Compromiso */}
-        <motion.div custom={6} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-          className="bg-white rounded-2xl p-7 border border-[#e2e8f0] border-l-4 border-l-[#f59e0b] shadow-sm">
-          <h3 className="text-[#1e293b] font-bold text-lg mb-3" style={{ fontFamily: "var(--font-montserrat)" }}>
-            Compromiso con la Innovación y el Desarrollo Sostenible en México
-          </h3>
-          <p className="text-[#64748b] text-sm leading-relaxed">
-            Creemos que la colaboración y la innovación son claves para un desarrollo sostenible y trabajamos incansablemente para ser la voz líder en México. Nos apasiona crear experiencias únicas y memorables que conecten a las personas, generen ideas innovadoras y promuevan un cambio positivo.
-          </p>
-        </motion.div>
+      {/* ── COMPROMISO — texto izq | imagen der ── */}
+      <div ref={refComp.ref} className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-        {/* Equipo */}
-        <div>
-          <motion.h3 custom={7} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-            className="text-2xl font-bold text-[#1e293b] mb-8" style={{ fontFamily: "var(--font-montserrat)" }}>
+          {/* Texto */}
+          <motion.div
+            initial={{ opacity: 0, x: -60 }} animate={refComp.inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+            <div className="w-10 h-1 bg-[#f59e0b] rounded mb-6" />
+            <h3 className="text-3xl font-bold text-[#1e293b] mb-5" style={{ fontFamily: "var(--font-montserrat)" }}>
+              Compromiso con la Innovación y el Desarrollo Sostenible en México
+            </h3>
+            <p className="text-[#64748b] text-base leading-relaxed">
+              Creemos que la colaboración y la innovación son claves para un desarrollo sostenible y trabajamos incansablemente para ser la voz líder en México. Nos apasiona crear experiencias únicas y memorables que conecten a las personas, generen ideas innovadoras y promuevan un cambio positivo.
+            </p>
+          </motion.div>
+
+          {/* Imagen */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }} animate={refComp.inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
+            className="relative h-[420px] lg:h-[480px] rounded-3xl overflow-hidden shadow-xl">
+            <Image src="/images/about/about-3.jpg" alt="Comunidad GTN" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f2e]/30 to-transparent" />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ── EQUIPO — fondo azul-lavanda full width ── */}
+      <div
+        ref={refTeam.ref}
+        className="relative overflow-hidden py-24 lg:py-32"
+        style={{ background: "linear-gradient(135deg, #eef4ff 0%, #eaf0fe 50%, #f0eeff 100%)" }}
+      >
+        {/* Fades de transición */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#f8fafc] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#f8fafc] to-transparent z-10" />
+
+        {/* Orb animado */}
+        <motion.div
+          animate={{ scale: [1, 1.25, 1], opacity: [0.2, 0.38, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c7d2fe]/30 blur-3xl"
+        />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }} animate={refTeam.inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="text-center text-xs font-bold tracking-[0.28em] uppercase text-[#3b6fd4]/60 mb-3"
+            style={{ fontFamily: "var(--font-montserrat)" }}>
+            Equipo
+          </motion.p>
+          <motion.h3
+            initial={{ opacity: 0, y: 24 }} animate={refTeam.inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="text-3xl font-bold text-[#1e293b] mb-16 text-center" style={{ fontFamily: "var(--font-montserrat)" }}>
             Nuestro Equipo
           </motion.h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {team.map(({ name, role }, i) => (
-              <motion.div key={name} custom={i + 8} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
-                className="bg-white rounded-2xl p-6 text-center border border-[#e2e8f0] shadow-sm hover:-translate-y-1 hover:border-[#7c3aed]/30 transition-all duration-300">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2563eb]/15 to-[#d946ef]/15 border-2 border-[#e2e8f0] flex items-center justify-center mx-auto mb-4">
-                  <span className="text-primary-gradient text-lg font-bold">
-                    {name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
-                  </span>
-                </div>
-                <h4 className="text-[#1e293b] font-bold text-sm mb-1">{name}</h4>
-                <p className="text-[#94a3b8] text-xs">{role}</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
+            {team.map(({ name, role, photo }, i) => (
+              <motion.div
+                key={name}
+                initial={{ opacity: 0, y: 50 }}
+                animate={refTeam.inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.15 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="flex flex-col items-center text-center">
+                <motion.div
+                  whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                  className="relative w-56 h-56 rounded-full overflow-hidden border-4 border-white/80 shadow-lg mb-6 flex-shrink-0">
+                  <Image src={photo} alt={name} fill className="object-cover object-top" sizes="224px" />
+                </motion.div>
+                <h4 className="text-[#1e293b] font-bold text-base mb-1">{name}</h4>
+                <p className="text-[#64748b] text-sm">{role}</p>
               </motion.div>
             ))}
           </div>
