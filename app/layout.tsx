@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   title: "Global True North",
   description: "Un espacio global donde líderes, emprendedores y creadores se conectan.",
   keywords: ["eventos", "líderes", "emprendedores", "Silicon Valley", "innovación", "experiencias inmersivas"],
+  icons: {
+    icon: "/images/gtn-circle2.png",
+    apple: "/images/gtn-circle2.png",
+  },
   openGraph: {
     title: "Global True North",
     description: "Un espacio global donde líderes, emprendedores y creadores se conectan.",
