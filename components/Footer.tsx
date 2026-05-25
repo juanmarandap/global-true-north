@@ -5,14 +5,44 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, Phone, ArrowRight, X } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const navLinks = [
-  { label: "Inicio",         href: "/"               },
-  { label: "Events",         href: "/events"         },
-  { label: "Silicon Valley", href: "/silicon-valley" },
-  { label: "Blog",           href: "/blog"           },
-  { label: "Acerca de",      href: "/acerca-de"      },
-];
+const T = {
+  es: {
+    navLinks: [
+      { label: "Inicio",         href: "/"               },
+      { label: "Events",         href: "/events"         },
+      { label: "Silicon Valley", href: "/silicon-valley" },
+      { label: "Blog",           href: "/blog"           },
+      { label: "Acerca de",      href: "/acerca-de"      },
+    ],
+    tagline: "Un espacio global donde líderes, emprendedores y creadores se conectan para intercambiar ideas y generar impacto.",
+    contact: "Contáctanos",
+    navigation: "Navegación",
+    contactSection: "Contacto",
+    rights: "Todos los derechos reservados.",
+    langLabel: "Español (América Latina)",
+    modalTitle: "¿Cómo prefieres contactarnos?",
+    modalSub: "Elige tu canal preferido",
+  },
+  en: {
+    navLinks: [
+      { label: "Home",           href: "/"               },
+      { label: "Events",         href: "/events"         },
+      { label: "Silicon Valley", href: "/silicon-valley" },
+      { label: "Blog",           href: "/blog"           },
+      { label: "About",          href: "/acerca-de"      },
+    ],
+    tagline: "A global space where leaders, entrepreneurs and creators connect to exchange ideas and generate impact.",
+    contact: "Contact us",
+    navigation: "Navigation",
+    contactSection: "Contact",
+    rights: "All rights reserved.",
+    langLabel: "English (US)",
+    modalTitle: "How would you prefer to contact us?",
+    modalSub: "Choose your preferred channel",
+  },
+};
 
 const social = [
   {
@@ -50,6 +80,8 @@ const social = [
 
 export default function Footer() {
   const [showContact, setShowContact] = useState(false);
+  const { lang } = useLanguage();
+  const t = T[lang];
 
   return (
     <>
@@ -65,14 +97,14 @@ export default function Footer() {
                   <Image src="/images/logo.png" alt="Global True North" fill className="object-contain object-left" />
                 </div>
                 <p className="text-[#64748b] text-sm leading-relaxed max-w-xs mb-5">
-                  Un espacio global donde líderes, emprendedores y creadores se conectan para intercambiar ideas y generar impacto.
+                  {t.tagline}
                 </p>
                 <button
                   onClick={() => setShowContact(true)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563eb] text-white font-bold text-sm hover:bg-[#1d4ed8] transition-all shadow-sm hover:shadow-md mb-6"
                   style={{ fontFamily: "var(--font-montserrat)" }}
                 >
-                  Contáctanos
+                  {t.contact}
                 </button>
                 <div className="flex items-center gap-2.5">
                   {social.map(({ svg, href, label }) => (
@@ -87,10 +119,10 @@ export default function Footer() {
               {/* Nav */}
               <div>
                 <h4 className="text-[#1e293b] font-bold text-sm uppercase tracking-widest mb-5" style={{ fontFamily: "var(--font-montserrat)" }}>
-                  Navegación
+                  {t.navigation}
                 </h4>
                 <ul className="space-y-3">
-                  {navLinks.map((l) => (
+                  {t.navLinks.map((l) => (
                     <li key={l.href}>
                       <Link href={l.href} className="text-[#64748b] text-sm hover:text-[#2563eb] transition-colors">
                         {l.label}
@@ -103,7 +135,7 @@ export default function Footer() {
               {/* Contact */}
               <div>
                 <h4 className="text-[#1e293b] font-bold text-sm uppercase tracking-widest mb-5" style={{ fontFamily: "var(--font-montserrat)" }}>
-                  Contacto
+                  {t.contactSection}
                 </h4>
                 <ul className="space-y-4">
                   <li>
@@ -130,12 +162,10 @@ export default function Footer() {
         <div className="bg-[#1e293b]">
           <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-[#94a3b8] text-xs">
-              © {new Date().getFullYear()} Global True North. Todos los derechos reservados.
+              © {new Date().getFullYear()} Global True North. {t.rights}
             </p>
             <div className="flex items-center gap-3 text-[#94a3b8] text-xs">
-              <span>English (US)</span>
-              <span className="opacity-40">|</span>
-              <span>Español (América Latina)</span>
+              <span>{t.langLabel}</span>
             </div>
           </div>
         </div>
@@ -164,13 +194,13 @@ export default function Footer() {
 
             <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.25em] text-[#7c3aed]"
               style={{ fontFamily: "var(--font-montserrat)" }}>
-              Contacto
+              {t.contactSection}
             </p>
             <h3 className="mb-1 text-xl font-bold text-[#1e293b]"
               style={{ fontFamily: "var(--font-montserrat)" }}>
-              ¿Cómo prefieres contactarnos?
+              {t.modalTitle}
             </h3>
-            <p className="mb-6 text-sm text-[#94a3b8]">Elige tu canal preferido</p>
+            <p className="mb-6 text-sm text-[#94a3b8]">{t.modalSub}</p>
 
             <div className="flex flex-col gap-3">
               <a

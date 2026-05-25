@@ -3,11 +3,26 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const lines = [
-  ["Conecta", "con", "el", "futuro"],
-  ["desde", "donde", "se", "crea"],
-];
+const T = {
+  es: {
+    lines: [
+      ["Conecta", "con", "el", "futuro"],
+      ["desde", "donde", "se", "crea"],
+    ],
+    subtitle: "Una experiencia inmersiva de innovación, liderazgo y conexiones reales con el ecosistema de Silicon Valley que está transformando el mundo.",
+    cta: "Quiero saber más",
+  },
+  en: {
+    lines: [
+      ["Connect", "with", "the", "future"],
+      ["from", "where", "it's", "created"],
+    ],
+    subtitle: "An immersive experience of innovation, leadership and real connections with the Silicon Valley ecosystem that is transforming the world.",
+    cta: "I want to know more",
+  },
+};
 
 const dots = [
   { top: "15%",    left: "5%",   size: 5, delay: 0   },
@@ -19,6 +34,8 @@ const dots = [
 export default function SiliconValleyHero() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const { lang } = useLanguage();
+  const t = T[lang];
 
   return (
     <section ref={ref} className="relative min-h-[600px] sm:min-h-[680px] flex items-center overflow-hidden">
@@ -62,7 +79,7 @@ export default function SiliconValleyHero() {
           className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-7 leading-[1.08]"
           style={{ fontFamily: "var(--font-montserrat)", letterSpacing: "-0.02em" }}
         >
-          {lines.map((line, li) => (
+          {t.lines.map((line, li) => (
             <div key={li} className="overflow-hidden block">
               <motion.div
                 initial={{ y: "110%" }}
@@ -86,7 +103,7 @@ export default function SiliconValleyHero() {
           className="text-white/85 text-lg sm:text-xl mb-11 max-w-xl leading-relaxed font-light"
           style={{ fontFamily: "var(--font-montserrat)" }}
         >
-          Una experiencia inmersiva de innovación, liderazgo y conexiones reales con el ecosistema de Silicon Valley que está transformando el mundo.
+          {t.subtitle}
         </motion.p>
 
         {/* CTA */}
@@ -100,7 +117,7 @@ export default function SiliconValleyHero() {
           className="inline-flex items-center px-10 py-4 rounded-lg bg-white text-[#4c1d95] font-semibold text-sm tracking-wide hover:bg-gray-50 transition-colors shadow-xl"
           style={{ fontFamily: "var(--font-montserrat)", letterSpacing: "0.04em" }}
         >
-          Quiero saber más
+          {t.cta}
         </motion.a>
 
       </div>

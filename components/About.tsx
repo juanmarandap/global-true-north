@@ -4,6 +4,40 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 import { fadeUp } from "@/lib/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+const T = {
+  es: {
+    label: "Acerca de nosotros",
+    desc1: "Un espacio global dedicado al intercambio de ideas y experiencias entre líderes, emprendedores, empresarios y creadores que promueven la integración y el desarrollo a través de la innovación, la cultura y las artes.",
+    desc2Founded: "Fundada en 2015 por",
+    desc2Rest: ", una emprendedora y líder comprometida con la creación de un mundo mejor y más equitativo.",
+    missionTitle: "Misión",
+    missionBody: "Capacitar e inspirar a personas de todos los ámbitos de la vida para que alcancen su máximo potencial. Desde nuestra sede en México, impulsamos programas e iniciativas que fomentan la inclusión en diversos sectores, creando un impacto positivo y duradero en nuestras comunidades.",
+    expTitle: "Experiencias y conexiones",
+    expBody1: "En Global True North, no solo organizamos eventos, creamos experiencias que inspiran. Somos expertos en la gestión de eventos, encargándonos de la logística y el ecosistema necesario para que cada encuentro sea un éxito.",
+    expBody2: "Nuestra experiencia y dedicación nos permiten ofrecer oportunidades donde las ideas florecen y las conexiones se fortalecen.",
+    commitTitle: "Compromiso con la Innovación y el Desarrollo Sostenible en México",
+    commitBody: "Creemos que la colaboración y la innovación son claves para un desarrollo sostenible y trabajamos incansablemente para ser la voz líder en México. Nos apasiona crear experiencias únicas y memorables que conecten a las personas, generen ideas innovadoras y promuevan un cambio positivo.",
+    teamLabel: "Equipo",
+    teamTitle: "Nuestro Equipo",
+  },
+  en: {
+    label: "About us",
+    desc1: "A global space dedicated to the exchange of ideas and experiences among leaders, entrepreneurs, businesspeople and creators who promote integration and development through innovation, culture and the arts.",
+    desc2Founded: "Founded in 2015 by",
+    desc2Rest: ", an entrepreneur and leader committed to creating a better and more equitable world.",
+    missionTitle: "Mission",
+    missionBody: "To empower and inspire people from all walks of life to reach their full potential. From our headquarters in Mexico, we drive programs and initiatives that promote inclusion across various sectors, creating a positive and lasting impact in our communities.",
+    expTitle: "Experiences and connections",
+    expBody1: "At Global True North, we don't just organize events, we create experiences that inspire. We are experts in event management, handling the logistics and ecosystem necessary for each gathering to be a success.",
+    expBody2: "Our experience and dedication allow us to offer opportunities where ideas flourish and connections strengthen.",
+    commitTitle: "Commitment to Innovation and Sustainable Development in Mexico",
+    commitBody: "We believe that collaboration and innovation are key to sustainable development and we work tirelessly to be the leading voice in Mexico. We are passionate about creating unique and memorable experiences that connect people, generate innovative ideas and promote positive change.",
+    teamLabel: "Team",
+    teamTitle: "Our Team",
+  },
+};
 
 const team = [
   { name: "Lucila Padilla", role: "CEO & Founder", photo: "/images/team/lucila-padilla.jpg" },
@@ -18,6 +52,8 @@ function useSection() {
 }
 
 export default function About() {
+  const { lang } = useLanguage();
+  const t = T[lang];
   const refHero   = useSection();
   const refMision = useSection();
   const refExp    = useSection();
@@ -54,7 +90,7 @@ export default function About() {
           transition={{ duration: 0.5 }}
           className="text-[#7c3aed] text-xs font-bold tracking-[0.2em] uppercase mb-4"
           style={{ fontFamily: "var(--font-montserrat)" }}>
-          Acerca de nosotros
+          {t.label}
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }} animate={refHero.inView ? { opacity: 1, y: 0 } : {}}
@@ -67,13 +103,13 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }} animate={refHero.inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.18 }}
           className="text-[#64748b] text-lg leading-relaxed max-w-2xl mb-2">
-          Un espacio global dedicado al intercambio de ideas y experiencias entre líderes, emprendedores, empresarios y creadores que promueven la integración y el desarrollo a través de la innovación, la cultura y las artes.
+          {t.desc1}
         </motion.p>
         <motion.p
           initial={{ opacity: 0, y: 20 }} animate={refHero.inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.26 }}
           className="text-[#64748b] text-base leading-relaxed max-w-2xl">
-          Fundada en 2015 por <span className="text-[#1e293b] font-semibold">Lucila Padilla</span>, una emprendedora y líder comprometida con la creación de un mundo mejor y más equitativo.
+          {t.desc2Founded} <span className="text-[#1e293b] font-semibold">Lucila Padilla</span>{t.desc2Rest}
         </motion.p>
       </div>
       </div>
@@ -88,10 +124,10 @@ export default function About() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
             <div className="w-10 h-1 bg-[#2563eb] rounded mb-6" />
             <h3 className="text-3xl font-bold text-[#1e293b] mb-5" style={{ fontFamily: "var(--font-montserrat)" }}>
-              Misión
+              {t.missionTitle}
             </h3>
             <p className="text-[#64748b] text-base leading-relaxed">
-              Capacitar e inspirar a personas de todos los ámbitos de la vida para que alcancen su máximo potencial. Desde nuestra sede en México, impulsamos programas e iniciativas que fomentan la inclusión en diversos sectores, creando un impacto positivo y duradero en nuestras comunidades.
+              {t.missionBody}
             </p>
           </motion.div>
 
@@ -128,13 +164,13 @@ export default function About() {
             className="order-1 lg:order-2">
             <div className="w-10 h-1 bg-[#d946ef] rounded mb-6" />
             <h3 className="text-3xl font-bold text-[#1e293b] mb-5" style={{ fontFamily: "var(--font-montserrat)" }}>
-              Experiencias y conexiones
+              {t.expTitle}
             </h3>
             <p className="text-[#64748b] text-base leading-relaxed mb-4">
-              En Global True North, no solo organizamos eventos, creamos experiencias que inspiran. Somos expertos en la gestión de eventos, encargándonos de la logística y el ecosistema necesario para que cada encuentro sea un éxito.
+              {t.expBody1}
             </p>
             <p className="text-[#64748b] text-base leading-relaxed">
-              Nuestra experiencia y dedicación nos permiten ofrecer oportunidades donde las ideas florecen y las conexiones se fortalecen.
+              {t.expBody2}
             </p>
           </motion.div>
         </div>
@@ -150,10 +186,10 @@ export default function About() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
             <div className="w-10 h-1 bg-[#f59e0b] rounded mb-6" />
             <h3 className="text-3xl font-bold text-[#1e293b] mb-5" style={{ fontFamily: "var(--font-montserrat)" }}>
-              Compromiso con la Innovación y el Desarrollo Sostenible en México
+              {t.commitTitle}
             </h3>
             <p className="text-[#64748b] text-base leading-relaxed">
-              Creemos que la colaboración y la innovación son claves para un desarrollo sostenible y trabajamos incansablemente para ser la voz líder en México. Nos apasiona crear experiencias únicas y memorables que conecten a las personas, generen ideas innovadoras y promuevan un cambio positivo.
+              {t.commitBody}
             </p>
           </motion.div>
 
@@ -192,13 +228,13 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="text-center text-xs font-bold tracking-[0.28em] uppercase text-[#3b6fd4]/60 mb-3"
             style={{ fontFamily: "var(--font-montserrat)" }}>
-            Equipo
+            {t.teamLabel}
           </motion.p>
           <motion.h3
             initial={{ opacity: 0, y: 24 }} animate={refTeam.inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="text-3xl font-bold text-[#1e293b] mb-16 text-center" style={{ fontFamily: "var(--font-montserrat)" }}>
-            Nuestro Equipo
+            {t.teamTitle}
           </motion.h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">

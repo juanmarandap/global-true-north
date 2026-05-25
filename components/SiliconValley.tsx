@@ -4,24 +4,85 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 import { fadeUp } from "@/lib/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const stats = [
-  { value: "20+", sub: "Viajes empresariales exitosos a Silicon Valley" },
-  { value: "9+",  sub: "Años conectando líderes con Silicon Valley" },
-  { value: "400+", sub: "Empresarios que han vivido la experiencia" },
-];
-
-const includes = [
-  { title: "Visitas privadas", description: "Acceso a gigantes tecnológicos, aceleradoras globales y centros de innovación de clase mundial" },
-  { title: "Encuentros estratégicos", description: "Conexiones con VCs, founders y líderes de innovación del ecosistema" },
-  { title: "Talleres 10X", description: "Aprende sobre Inteligencia Artificial, liderazgo consciente y mentalidad 10x" },
-  { title: "Networking transformador", description: "Espacios donde las relaciones se convierten en alianzas estratégicas" },
-];
+const T = {
+  es: {
+    stats: [
+      { value: "20+",  sub: "Viajes empresariales exitosos a Silicon Valley" },
+      { value: "9+",   sub: "Años conectando líderes con Silicon Valley" },
+      { value: "400+", sub: "Empresarios que han vivido la experiencia" },
+    ],
+    includes: [
+      { title: "Visitas privadas",        description: "Acceso a gigantes tecnológicos, aceleradoras globales y centros de innovación de clase mundial" },
+      { title: "Encuentros estratégicos", description: "Conexiones con VCs, founders y líderes de innovación del ecosistema" },
+      { title: "Talleres 10X",            description: "Aprende sobre Inteligencia Artificial, liderazgo consciente y mentalidad 10x" },
+      { title: "Networking transformador",description: "Espacios donde las relaciones se convierten en alianzas estratégicas" },
+    ],
+    sectionTitle: "Conecta con el corazón de la innovación",
+    blockquote: "Una experiencia inmersiva diseñada para emprendedores, empresarios e inversionistas que buscan algo más que inspiración: buscan transformación.",
+    body: "En Global True North conectamos a líderes con el corazón del ecosistema de Silicon Valley, brindándoles acceso exclusivo a empresas de vanguardia, mentes brillantes y tendencias que están redefiniendo el futuro.",
+    includesTitle: "Lo que incluye la experiencia",
+    forWhomTitle: "¿Para quién es esta experiencia?",
+    forWhomSub: "Empresarios, fundadores, tomadores de decisiones y ejecutivos con visión global listos para su siguiente nivel.",
+    cards: [
+      { title: "Empresarios y fundadores",  desc: "Líderes con visión global que buscan conexiones reales y acceso exclusivo al ecosistema de innovación." },
+      { title: "Encuentros exclusivos",     desc: "Sesiones íntimas con referentes, VCs y fundadores que están redefiniendo industrias enteras." },
+      { title: "Networking de alto valor",  desc: "Cada edición curada para garantizar conversaciones e interacciones que generan alianzas estratégicas." },
+    ],
+    disclaimer: "Esta experiencia no está abierta al público en general. Cada edición es curada cuidadosamente para garantizar conversaciones, interacciones y networking de alto valor.",
+    whatWeDoTitle: "¿Qué hacemos durante la experiencia?",
+    activities: [
+      { accent: "#2563eb", title: "Visitas privadas",         desc: "Accede a empresas líderes del ecosistema global de innovación" },
+      { accent: "#7c3aed", title: "Encuentros estratégicos",  desc: "Conecta con VCs, fundadores y referentes de Silicon Valley" },
+      { accent: "#d946ef", title: "Talleres 10X",             desc: "Aprende de expertos de IA, liderazgo y pensamiento experiencial" },
+      { accent: "#f59e0b", title: "Reflexión transformadora", desc: "Repiensa tu visión y estrategia en un entorno inspirador" },
+    ],
+    companiesTitle: "Algunas de las empresas que nos han recibido",
+    orgsTitle: "Algunas organizaciones, grupos y empresas que han confiado en nosotros",
+  },
+  en: {
+    stats: [
+      { value: "20+",  sub: "Successful business trips to Silicon Valley" },
+      { value: "9+",   sub: "Years connecting leaders with Silicon Valley" },
+      { value: "400+", sub: "Entrepreneurs who have lived the experience" },
+    ],
+    includes: [
+      { title: "Private visits",            description: "Access to tech giants, global accelerators and world-class innovation centers" },
+      { title: "Strategic meetings",        description: "Connections with VCs, founders and innovation leaders of the ecosystem" },
+      { title: "10X Workshops",             description: "Learn about Artificial Intelligence, conscious leadership and 10x mindset" },
+      { title: "Transformative networking", description: "Spaces where relationships become strategic alliances" },
+    ],
+    sectionTitle: "Connect with the heart of innovation",
+    blockquote: "An immersive experience designed for entrepreneurs, businesspeople and investors seeking more than inspiration: they seek transformation.",
+    body: "At Global True North we connect leaders with the heart of the Silicon Valley ecosystem, providing them exclusive access to cutting-edge companies, brilliant minds and trends that are redefining the future.",
+    includesTitle: "What the experience includes",
+    forWhomTitle: "Who is this experience for?",
+    forWhomSub: "Entrepreneurs, founders, decision-makers and executives with global vision ready for their next level.",
+    cards: [
+      { title: "Entrepreneurs and founders", desc: "Leaders with global vision seeking real connections and exclusive access to the innovation ecosystem." },
+      { title: "Exclusive meetings",         desc: "Intimate sessions with references, VCs and founders who are redefining entire industries." },
+      { title: "High-value networking",      desc: "Each edition curated to ensure conversations and interactions that generate strategic alliances." },
+    ],
+    disclaimer: "This experience is not open to the general public. Each edition is carefully curated to ensure conversations, interactions and high-value networking.",
+    whatWeDoTitle: "What do we do during the experience?",
+    activities: [
+      { accent: "#2563eb", title: "Private visits",            desc: "Access leading companies of the global innovation ecosystem" },
+      { accent: "#7c3aed", title: "Strategic meetings",        desc: "Connect with VCs, founders and Silicon Valley references" },
+      { accent: "#d946ef", title: "10X Workshops",             desc: "Learn from AI, leadership and experiential thinking experts" },
+      { accent: "#f59e0b", title: "Transformative reflection", desc: "Rethink your vision and strategy in an inspiring environment" },
+    ],
+    companiesTitle: "Some of the companies that have hosted us",
+    orgsTitle: "Some organizations, groups and companies that have trusted us",
+  },
+};
 
 
 export default function SiliconValley() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { lang } = useLanguage();
+  const t = T[lang];
 
   return (
     <section id="silicon-valley" ref={ref} className="relative py-20 lg:py-28 bg-[#f8fafc]">
@@ -70,7 +131,7 @@ export default function SiliconValley() {
                 className="text-3xl sm:text-4xl font-bold text-[#1e293b] leading-tight"
                 style={{ fontFamily: "var(--font-montserrat)", letterSpacing: "-0.01em" }}
               >
-                Conecta con el corazón de la innovación
+                {t.sectionTitle}
               </motion.h3>
             </div>
 
@@ -81,7 +142,7 @@ export default function SiliconValley() {
               className="border-l-4 border-[#7c3aed] pl-5"
             >
               <p className="text-[#64748b] text-base leading-relaxed italic">
-                Una experiencia inmersiva diseñada para emprendedores, empresarios e inversionistas que buscan algo más que inspiración: buscan transformación.
+                {t.blockquote}
               </p>
             </motion.blockquote>
 
@@ -91,12 +152,12 @@ export default function SiliconValley() {
               transition={{ duration: 0.6, delay: 0.38, ease: "easeOut" }}
               className="text-[#64748b] text-sm leading-relaxed"
             >
-              En Global True North conectamos a líderes con el corazón del ecosistema de Silicon Valley, brindándoles acceso exclusivo a empresas de vanguardia, mentes brillantes y tendencias que están redefiniendo el futuro.
+              {t.body}
             </motion.p>
 
             {/* Stats */}
             <div className="flex divide-x divide-[#e2e8f0] mt-2">
-              {stats.map((s, i) => (
+              {t.stats.map((s, i) => (
                 <motion.div
                   key={s.sub}
                   initial={{ opacity: 0, y: 32, scale: 0.92 }}
@@ -126,12 +187,12 @@ export default function SiliconValley() {
               className="text-2xl font-bold text-[#7c3aed]"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Lo que incluye la experiencia
+              {t.includesTitle}
             </motion.h3>
           </div>
 
           <div className="max-w-2xl space-y-8">
-            {includes.map((item, i) => (
+            {t.includes.map((item, i) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -163,7 +224,7 @@ export default function SiliconValley() {
               className="text-2xl font-bold text-[#1e293b] text-center"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              ¿Para quién es esta experiencia?
+              {t.forWhomTitle}
             </motion.h3>
           </div>
           <motion.p
@@ -173,14 +234,14 @@ export default function SiliconValley() {
             transition={{ duration: 0.55, delay: 0.2, ease: "easeOut" }}
             className="text-[#64748b] text-sm text-center mb-10"
           >
-            Empresarios, fundadores, tomadores de decisiones y ejecutivos con visión global listos para su siguiente nivel.
+            {t.forWhomSub}
           </motion.p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { src: "/images/sv-stanford.jpg",  title: "Empresarios y fundadores", desc: "Líderes con visión global que buscan conexiones reales y acceso exclusivo al ecosistema de innovación." },
-              { src: "/images/sv-meeting.jpg",   title: "Encuentros exclusivos",    desc: "Sesiones íntimas con referentes, VCs y fundadores que están redefiniendo industrias enteras." },
-              { src: "/images/sv-networking.jpg",title: "Networking de alto valor", desc: "Cada edición curada para garantizar conversaciones e interacciones que generan alianzas estratégicas." },
+              { src: "/images/sv-stanford.jpg",   ...t.cards[0] },
+              { src: "/images/sv-meeting.jpg",    ...t.cards[1] },
+              { src: "/images/sv-networking.jpg", ...t.cards[2] },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -220,7 +281,7 @@ export default function SiliconValley() {
             transition={{ duration: 0.55, delay: 0.2, ease: "easeOut" }}
             className="text-[#64748b] text-sm text-center mt-10 max-w-2xl mx-auto leading-relaxed"
           >
-            Esta experiencia no está abierta al público en general. Cada edición es curada cuidadosamente para garantizar conversaciones, interacciones y networking de alto valor.
+            {t.disclaimer}
           </motion.p>
         </div>
 
@@ -235,17 +296,12 @@ export default function SiliconValley() {
               className="text-2xl font-bold text-[#1e293b] text-center"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              ¿Qué hacemos durante la experiencia?
+              {t.whatWeDoTitle}
             </motion.h3>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { accent: "#2563eb", title: "Visitas privadas",         desc: "Accede a empresas líderes del ecosistema global de innovación" },
-              { accent: "#7c3aed", title: "Encuentros estratégicos",  desc: "Conecta con VCs, fundadores y referentes de Silicon Valley" },
-              { accent: "#d946ef", title: "Talleres 10X",             desc: "Aprende de expertos de IA, liderazgo y pensamiento experiencial" },
-              { accent: "#f59e0b", title: "Reflexión transformadora", desc: "Repiensa tu visión y estrategia en un entorno inspirador" },
-            ].map((item, i) => (
+            {t.activities.map((item, i) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 40 }}
@@ -282,7 +338,7 @@ export default function SiliconValley() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            Algunas de las empresas que nos han recibido
+            {t.companiesTitle}
           </motion.h3>
 
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-8">
@@ -338,7 +394,7 @@ export default function SiliconValley() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            Algunas organizaciones, grupos y empresas que han confiado en nosotros
+            {t.orgsTitle}
           </h3>
 
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-8">

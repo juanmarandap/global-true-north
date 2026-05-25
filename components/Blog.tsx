@@ -3,6 +3,20 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { fadeUp } from "@/lib/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+const T = {
+  es: {
+    title: "Nuestro blog",
+    subtitle: "Somos un equipo de personas apasionadas cuyo objetivo es mejorar la vida de todos.",
+    comingSoon: "Próximamente.",
+  },
+  en: {
+    title: "Our blog",
+    subtitle: "We are a team of passionate people whose goal is to improve everyone's lives.",
+    comingSoon: "Coming soon.",
+  },
+};
 
 const posts: { slug: string; title: string; excerpt: string; date: string; image?: string }[] = [
   // Ejemplo — descomenta y edita cuando tengas un post:
@@ -18,6 +32,8 @@ const posts: { slug: string; title: string; excerpt: string; date: string; image
 export default function Blog() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { lang } = useLanguage();
+  const t = T[lang];
 
   return (
     <section id="blog" ref={ref} className="relative overflow-hidden" style={{ minHeight: "420px" }}>
@@ -47,13 +63,13 @@ export default function Blog() {
             className="text-3xl font-bold text-white mb-3"
             style={{ fontFamily: "var(--font-montserrat)" }}
           >
-            Nuestro blog
+            {t.title}
           </motion.h2>
           <motion.p
             custom={2} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
             className="text-white/65 text-base max-w-xl"
           >
-            Somos un equipo de personas apasionadas cuyo objetivo es mejorar la vida de todos.
+            {t.subtitle}
           </motion.p>
         </div>
 
@@ -63,7 +79,7 @@ export default function Blog() {
           className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {posts.length === 0 && (
-            <p className="text-white/45 text-sm col-span-full">Próximamente.</p>
+            <p className="text-white/45 text-sm col-span-full">{t.comingSoon}</p>
           )}
           {posts.map((post) => (
             <div key={post.slug} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex flex-col gap-3 hover:bg-white/15 transition-colors">

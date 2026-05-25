@@ -4,6 +4,30 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, Clock, MapPin, Calendar, CalendarDays } from "lucide-react";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+const T = {
+  es: {
+    label: "Próximos",
+    title: "Eventos",
+    subtitle: "Descubre lo que viene y únete a los momentos que importan.",
+    seeAll: "Ver todos",
+    seeAllMobile: "Ver todos los eventos",
+    viewEvent: "Ver evento",
+    comingSoon: "Próximamente",
+    eventDate: "Agosto 31",
+  },
+  en: {
+    label: "Upcoming",
+    title: "Events",
+    subtitle: "Discover what's coming and join the moments that matter.",
+    seeAll: "See all",
+    seeAllMobile: "See all events",
+    viewEvent: "View event",
+    comingSoon: "Coming soon",
+    eventDate: "August 31",
+  },
+};
 
 const dots = [
   { top: "18%",    left: "6%",    size: 4, delay: 0   },
@@ -18,6 +42,8 @@ export default function Events() {
 
   const inHero = useInView(refHero, { once: false, margin: "-60px" });
   const inGrid = useInView(refGrid, { once: true,  margin: "-80px" });
+  const { lang } = useLanguage();
+  const t = T[lang];
 
   return (
     <>
@@ -52,7 +78,7 @@ export default function Events() {
               className="text-xs font-bold uppercase tracking-[0.3em] text-[#7c3aed] mb-4"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Próximos
+              {t.label}
             </motion.p>
 
             {/* Title */}
@@ -62,7 +88,7 @@ export default function Events() {
               className="text-6xl sm:text-7xl lg:text-[6.5rem] font-bold text-[#0f172a] leading-[0.95] tracking-tight mb-6"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Eventos
+              {t.title}
             </motion.h1>
 
             {/* Divider */}
@@ -77,7 +103,7 @@ export default function Events() {
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
               className="text-[#64748b] text-base sm:text-lg max-w-sm leading-relaxed"
             >
-              Descubre lo que viene y únete a los momentos que importan.
+              {t.subtitle}
             </motion.p>
           </div>
 
@@ -131,7 +157,7 @@ export default function Events() {
               rel="noopener noreferrer"
               className="group hidden sm:flex items-center gap-1.5 text-[#2563eb] font-semibold text-sm hover:gap-2.5 transition-all shrink-0"
             >
-              Ver todos
+              {t.seeAll}
               <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
             </motion.a>
           </div>
@@ -175,7 +201,7 @@ export default function Events() {
                 <div className="flex flex-col gap-2 mb-5">
                   <div className="flex items-center gap-2 text-[#64748b] text-sm">
                     <CalendarDays size={13} className="text-[#2563eb] shrink-0" />
-                    <span>Agosto 31</span>
+                    <span>{t.eventDate}</span>
                   </div>
                   <div className="flex items-center gap-2 text-[#64748b] text-sm">
                     <Clock size={13} className="text-[#7c3aed] shrink-0" />
@@ -187,7 +213,7 @@ export default function Events() {
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5 text-[#2563eb] font-semibold text-sm group-hover:gap-3 transition-all duration-300">
-                  Ver evento
+                  {t.viewEvent}
                   <ArrowRight size={14} />
                 </div>
               </div>
@@ -215,7 +241,7 @@ export default function Events() {
                 </motion.div>
                 <p className="text-[#94a3b8] text-sm font-medium tracking-wide relative z-10"
                   style={{ fontFamily: "var(--font-montserrat)" }}>
-                  Próximamente
+                  {t.comingSoon}
                 </p>
               </motion.div>
             ))}
@@ -229,7 +255,7 @@ export default function Events() {
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-1.5 text-[#2563eb] font-semibold text-sm"
             >
-              Ver todos los eventos
+              {t.seeAllMobile}
               <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
             </a>
           </div>

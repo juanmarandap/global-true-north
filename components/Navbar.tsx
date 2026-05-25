@@ -6,20 +6,33 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const links = [
-  { label: "Inicio",         href: "/"               },
-  { label: "Events",         href: "/events"         },
-  { label: "Silicon Valley", href: "/silicon-valley" },
-  { label: "Speakers",       href: "/speakers"       },
-  { label: "Blog",           href: "/blog"           },
-  { label: "Acerca de",      href: "/acerca-de"      },
-];
+const LINKS = {
+  es: [
+    { label: "Inicio",         href: "/"               },
+    { label: "Events",         href: "/events"         },
+    { label: "Silicon Valley", href: "/silicon-valley" },
+    { label: "Speakers",       href: "/speakers"       },
+    { label: "Blog",           href: "/blog"           },
+    { label: "Acerca de",      href: "/acerca-de"      },
+  ],
+  en: [
+    { label: "Home",           href: "/"               },
+    { label: "Events",         href: "/events"         },
+    { label: "Silicon Valley", href: "/silicon-valley" },
+    { label: "Speakers",       href: "/speakers"       },
+    { label: "Blog",           href: "/blog"           },
+    { label: "About",          href: "/acerca-de"      },
+  ],
+};
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { lang, toggleLang } = useLanguage();
+  const links = LINKS[lang];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -43,7 +56,12 @@ export default function Navbar() {
             Sign in
           </a>
           <span className="text-gray-200">|</span>
-          <span className="text-xs text-[#64748b]">English (US)</span>
+          <button
+            onClick={toggleLang}
+            className="text-xs text-[#64748b] hover:text-[#7c3aed] transition-colors cursor-pointer"
+          >
+            {lang === "es" ? "English (US)" : "Español"}
+          </button>
         </div>
       </div>
 

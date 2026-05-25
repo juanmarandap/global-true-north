@@ -3,8 +3,20 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const words = ["Descubre", "eventos", "y", "experiencias", "únicas"];
+const T = {
+  es: {
+    words: ["Descubre", "eventos", "y", "experiencias", "únicas"],
+    subtitle: "Compra boletos para los mejores eventos de viajes y experiencias en un solo lugar",
+    cta: "Explorar eventos",
+  },
+  en: {
+    words: ["Discover", "events", "and", "unique", "experiences"],
+    subtitle: "Buy tickets for the best travel events and experiences in one place",
+    cta: "Explore events",
+  },
+};
 
 const dots = [
   { top: "15%", left: "5%",   size: 5, delay: 0   },
@@ -16,6 +28,8 @@ const dots = [
 export default function Hero() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: false, margin: "-60px" });
+  const { lang } = useLanguage();
+  const t = T[lang];
 
   return (
     <section id="inicio" ref={ref} className="relative pt-[100px] overflow-hidden">
@@ -58,7 +72,7 @@ export default function Hero() {
               className="text-4xl sm:text-5xl lg:text-[3.25rem] font-semibold text-[#1e293b] leading-tight mb-5 flex flex-wrap gap-x-3 gap-y-1"
               style={{ fontFamily: "var(--font-montserrat)", letterSpacing: "-0.01em" }}
             >
-              {words.map((word, i) => (
+              {t.words.map((word, i) => (
                 <motion.span
                   key={word}
                   animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 44 }}
@@ -74,7 +88,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
               className="text-[#64748b] text-base sm:text-lg mb-9 max-w-md leading-relaxed font-normal"
             >
-              Compra boletos para los mejores eventos de viajes y experiencias en un solo lugar
+              {t.subtitle}
             </motion.p>
 
             <motion.a
@@ -86,7 +100,7 @@ export default function Hero() {
               className="inline-flex items-center px-8 py-3 rounded-lg bg-[#7c3aed] text-white font-semibold text-sm hover:bg-[#6d28d9] transition-colors shadow-lg shadow-[#7c3aed]/30"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Explorar eventos
+              {t.cta}
             </motion.a>
           </div>
 

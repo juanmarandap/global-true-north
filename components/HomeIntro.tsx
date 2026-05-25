@@ -5,18 +5,46 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const stats = [
-  { value: "20+",  label: "Viajes empresariales\na Silicon Valley" },
-  { value: "9+",   label: "Años conectando\nlíderes con Silicon Valley" },
-  { value: "400+", label: "Empresarios que han\nvivido la experiencia" },
-];
+const T = {
+  es: {
+    stats: [
+      { value: "20+",  label: "Viajes empresariales\na Silicon Valley" },
+      { value: "9+",   label: "Años conectando\nlíderes con Silicon Valley" },
+      { value: "400+", label: "Empresarios que han\nvivido la experiencia" },
+    ],
+    lines: [
+      "Creamos experiencias inmersivas",
+      "que transforman la manera en la que",
+      "las personas piensan, lideran y construyen el futuro.",
+    ],
+    founded: "Fundada en 2015 por Lucila Padilla Padilla, una emprendedora y líder comprometida con la creación de un mundo mejor y más equitativo.",
+    learnMore: "Conoce más",
+  },
+  en: {
+    stats: [
+      { value: "20+",  label: "Business trips\nto Silicon Valley" },
+      { value: "9+",   label: "Years connecting\nleaders with Silicon Valley" },
+      { value: "400+", label: "Entrepreneurs who have\nlived the experience" },
+    ],
+    lines: [
+      "We create immersive experiences",
+      "that transform the way",
+      "people think, lead and build the future.",
+    ],
+    founded: "Founded in 2015 by Lucila Padilla Padilla, an entrepreneur and leader committed to creating a better and more equitable world.",
+    learnMore: "Learn more",
+  },
+};
 
 export default function HomeIntro() {
   const refA = useRef(null);
   const refC = useRef(null);
   const inA = useInView(refA, { once: false, margin: "-60px" });
   const inC = useInView(refC, { once: false, margin: "-60px" });
+  const { lang } = useLanguage();
+  const t = T[lang];
 
   return (
     <>
@@ -37,11 +65,7 @@ export default function HomeIntro() {
           </motion.p>
 
           <div className="max-w-4xl">
-            {[
-              "Creamos experiencias inmersivas",
-              "que transforman la manera en la que",
-              "las personas piensan, lideran y construyen el futuro.",
-            ].map((line, i) => (
+            {t.lines.map((line, i) => (
               <motion.h2
                 key={i}
                 animate={inA ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
@@ -62,7 +86,7 @@ export default function HomeIntro() {
               transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
               className="text-[#64748b] text-base leading-relaxed max-w-xl"
             >
-              Fundada en 2015 por Lucila Padilla Padilla, una emprendedora y líder comprometida con la creación de un mundo mejor y más equitativo.
+              {t.founded}
             </motion.p>
             <motion.div
               animate={inA ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
@@ -72,7 +96,7 @@ export default function HomeIntro() {
               <Link href="/acerca-de"
                 className="group inline-flex items-center gap-2 text-[#4c1d95] font-bold text-sm hover:gap-3 transition-all"
                 style={{ fontFamily: "var(--font-montserrat)" }}>
-                Conoce más
+                {t.learnMore}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
@@ -103,7 +127,7 @@ export default function HomeIntro() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-20">
           <div className="grid grid-cols-1 sm:grid-cols-3">
-            {stats.map((s, i) => (
+            {t.stats.map((s, i) => (
               <motion.div
                 key={s.value}
                 animate={inC ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
